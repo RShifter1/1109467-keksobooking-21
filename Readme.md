@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Mark Shervud](https://up.htmlacademy.ru/javascript/21/user/1109467).
-* Наставник: `Неизвестно`.
+* Наставник: [Artimy Boikov](https://htmlacademy.ru/profile/id607755).
 
 ---
 
