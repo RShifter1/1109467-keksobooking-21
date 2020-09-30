@@ -45,7 +45,7 @@ const renderPins = function () {
   const pinsContainer = document.querySelector(`.map__pins`);
   const template = document.querySelector(`#pin`).content.querySelector(`button`);
 
-  for (const i = 0; i < pins.length; i++) {
+  for (var i = 0; i < pins.length; i++) {
     const pin = pins[i];
     const pinElement = template.cloneNode(true);
     pinElement.children[0].alt = pin.offer.title;
@@ -103,7 +103,7 @@ function getCheckin() {
 function getFeature() {
   const features = [];
   const randFeature = randomInteger(1, FEATURES.length);
-  for (const i = 0; i < randFeature; i++) {
+  for (var i = 0; i < randFeature; i++) {
     features.push(arrayRandElement(FEATURES));
   }
   return features;
@@ -116,7 +116,7 @@ function getDescription() {
 function getPhotos() {
   const photos = [];
   const randPhoto = randomInteger(1, PHOTOS.length);
-  for (const i = 0; i < randPhoto; i++) {
+  for (var i = 0; i < randPhoto; i++) {
     photos.push(arrayRandElement(PHOTOS));
   }
   return photos;
@@ -133,7 +133,7 @@ function getLocationX() {
 
 function generateObjects(count) {
   const resultObjects = [];
-  for (const i = 0; i < count; i++) {
+  for (var i = 0; i < count; i++) {
     resultObjects.push(generateObject(i));
   }
   return resultObjects;
