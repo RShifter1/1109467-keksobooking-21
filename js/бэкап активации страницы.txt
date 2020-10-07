@@ -1,0 +1,36 @@
+// fieldset.forEach(function (field){
+//   field.setAttribute('disabled', `disabled`);
+// });
+//
+// select.forEach(function (item){
+//   item.setAttribute('disabled', `disabled`);
+// });
+//
+// activation.addEventListener(`click`, function (evt) {
+//   if (evt)
+//   map.classList.remove(`map--faded`);
+//   form.classList.remove(`ad-form--disabled`);
+//
+//
+//
+//   fieldset.forEach(function (field){
+//       field.removeAttribute('disabled');
+//
+//     })
+//
+//     select.forEach(function (item){
+//       item.removeAttribute('disabled');
+//     });
+//
+//
+//
+// });
+//
+//
+// fieldset.forEach(function (field){
+//   field.setAttribute('disabled', `disabled`);
+// });
+//
+// select.forEach(function (item){
+//   item.setAttribute('disabled', `disabled`);
+// });
