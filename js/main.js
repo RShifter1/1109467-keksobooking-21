@@ -35,7 +35,7 @@ titleInput.addEventListener('input', function () {
   titleInput.reportValidity();
 });
 
-const checkRoomsGuests = function(select) {
+const checkRoomsGuests = function (selected) {
   const selectedGuestNumberS = guestNumbers.selectedOptions;
   const selectedRoomNumberS = roomNumbers.selectedOptions;
   const selectedGuestNumberSNumber = Number(selectedGuestNumberS[0].value);
@@ -43,86 +43,74 @@ const checkRoomsGuests = function(select) {
 
   if (selectedRoomNumberSNumber === 100 && selectedGuestNumberSNumber !== 0) {
     select.setCustomValidity(`слишком много комнат`);
-}
-  else if (selectedGuestNumberS[0].value > selectedRoomNumberS[0].value) {
-    select.setCustomValidity(`добавьте больше комнат`);
-   } else {
-    select.setCustomValidity(``);
+  } else if (selectedGuestNumberS[0].value > selectedRoomNumberS[0].value) {
+    selected.setCustomValidity(`добавьте больше комнат`);
+  } else {
+    selected.setCustomValidity(``);
   }
-  select.reportValidity();
-}
+  selected.reportValidity();
+};
 
 
+guestNumbers.addEventListener(`change`, function () {
 
-guestNumbers.addEventListener(`change`, function() {
-
-
-checkRoomsGuests(guestNumbers);
+  checkRoomsGuests(guestNumbers);
 });
 
-roomNumbers.addEventListener(`change`, function() {
+roomNumbers.addEventListener(`change`, function () {
 
-checkRoomsGuests(roomNumbers);
+  checkRoomsGuests(roomNumbers);
 });
 
+fieldset.forEach(function (field) {
 
-
-fieldset.forEach(function (field){
   field.setAttribute('disabled', `disabled`);
 });
 
-select.forEach(function (item){
+select.forEach(function (item) {
+
   item.setAttribute('disabled', `disabled`);
 });
 
 
-
-
-const initialAddress = function(pin) {
+const initialAddress = function () {
   const leftX = document.querySelector(`.map__pin--main`).style.left;
   const topY = document.querySelector(`.map__pin--main`).style.top; // получить координату  y верхнего угла орандевой метки
-  const x = Math.floor(parseInt(leftX) + (mapPinMain.offsetWidth / 2));// получить координату центра точки половина ширины контейнера (width)
-  const y = Math.floor(parseInt(topY) + (mapPinMain.offsetHeight / 2)); // получить координату центра точки  половина высоты контейнера (height) parseInt
-  const address = form.querySelector(`#address`) // input с адресом
-
-
+  const x = Math.floor(parseInt(leftX, 10) + (mapPinMain.offsetWidth / 2));// получить координату центра точки половина ширины контейнера (width)
+  const y = Math.floor(parseInt(topY, 10) + (mapPinMain.offsetHeight / 2)); // получить координату центра точки  половина высоты контейнера (height) parseInt
+  const address = form.querySelector(`#address`); // input с адресом
   address.value = `${x}, ${y}`;
-  console.log(y)
-  // address.innerText = x;
-  // debugger;
-
-}
 
 
-const activatePage = function() {
+};
+
+
+const activatePage = function () {
   map.classList.remove(`map--faded`);
   form.classList.remove(`ad-form--disabled`);
 
-  fieldset.forEach(function (field){
-      field.removeAttribute('disabled');
+  fieldset.forEach(function (field) {
+    field.removeAttribute('disabled');
 
-    })
+  });
 
-    select.forEach(function (item){
-      item.removeAttribute('disabled');
+  select.forEach(function (item) {
+    item.removeAttribute('disabled');
   });
 
   const leftX = document.querySelector(`.map__pin--main`).style.left;
   const topY = document.querySelector(`.map__pin--main`).style.top; // получить координату  y верхнего угла орандевой метки
-  const x = Math.floor(parseInt(leftX) + (mapPinMain.offsetWidth / 2)); // получить координату центра точки половина ширины контейнера (width)
-  const y = Math.floor(parseInt(topY) + (mapPinMain.offsetHeight * 1.5)); // получить координату центра точки  половина высоты контейнера (height) parseInt
-  const address = form.querySelector(`#address`) // input с адресом
-  console.log(mapPinMain.children[1])
+  const x = Math.floor(parseInt(leftX, 10) + (mapPinMain.offsetWidth / 2)); // получить координату центра точки половина ширины контейнера (width)
+  const y = Math.floor(parseInt(topY, 10) + (mapPinMain.offsetHeight * 1.5)); // получить координату центра точки  половина высоты контейнера (height) parseInt
+  const address = form.querySelector(`#address`); // input с адресом
 
-  address.value = `${x} ${y}`;
-console.log(mapPinMain.children[1].offsetHeight)
+  address.value = `${x}, ${y}`;
+
 };
 
 
 mapPinMain.addEventListener(`click`, function () {
- activatePage();
- // getActivateAddress();
-
+  activatePage();
 });
 
 document.addEventListener('keydown', function (evt) {
@@ -131,13 +119,6 @@ document.addEventListener('keydown', function (evt) {
     activatePage();
   }
 });
-
-
-
-
-
-
-
 
 
 function randomInteger(min, max) {
