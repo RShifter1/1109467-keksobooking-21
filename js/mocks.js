@@ -2,6 +2,14 @@
 
 (function () {
 
+  const CHECKOUTINS = [`12:00`, `13:00`, `14:00`];
+  const FEATURES = [`wifi`, `dishwasher`, `parking`, `washer`, `elevator`, `conditioner`];
+  const PHOTOS = [`http://o0.github.io/assets/images/tokyo/hotel1.jpg`, `http://o0.github.io/assets/images/tokyo/hotel2.jpg`, `http://o0.github.io/assets/images/tokyo/hotel3.jpg`];
+  const TITLES = [`JR Kyushu Hotel Blossom Shinjuku`, `Mitsui Garden Hotel Jingugaien Tokyo Premier`, `Shinagawa Prince Hotel 3`, `THE BLOSSOM HIBIYA`, `Sotetsu Fresa Inn Ginza Sanchome`, `The Peninsula Tokyo`, `Tokyo Marriott Hotel`, `Hilton Tokyo Bay`, `THE KNOT TOKYO Shinjuku`, `karaksa hotel premier Tokyo Ginza`];
+  const TYPES = [`palace`, `flat`, `house`, `bungalow`];
+  const DESCRIPTIONS = [`description1`, `description2`, `description3`, `description4`, `description5`, `description6`, `description7`, `description8`, `description9`, `description10`];
+  const STREETS = [`Улица Омотесандо`, `Улица Гейш`, `Улица Амейоко`, `Улица Такешита Дори`, `Улица Нака-мисэ-дори`];
+
   window.randomInteger = function (min, max) {
     const rand = min + Math.random() * (max + 1 - min);
     return Math.floor(rand);

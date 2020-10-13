@@ -4,7 +4,7 @@
   const form = document.querySelector(`.ad-form`);
   const select = document.querySelectorAll(`select`);
   const mapPinMain = document.querySelector(`.map__pin--main`);
-  fieldset = document.querySelectorAll(`fieldset`);
+  const fieldset = document.querySelectorAll(`fieldset`);
   window.activatePage = function () {
     map.classList.remove(`map--faded`);
     form.classList.remove(`ad-form--disabled`);
