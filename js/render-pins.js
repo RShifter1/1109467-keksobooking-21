@@ -2,8 +2,8 @@
 
 
 (function () {
-  var pins = generateObjects(8);
-  window.renderPins = function () {
+  // var pins = generateObjects(8);
+  window.renderPins = function (pins) {
 
     const pinsContainer = document.querySelector(`.map__pins`);
     const template = document.querySelector(`#pin`).content.querySelector(`button`);
