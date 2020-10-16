@@ -10,7 +10,7 @@
   const mapPinMain = document.querySelector(`.map__pin--main`);
 
   titleInput.addEventListener('input', function () {
-    var valueLength = titleInput.value.length;
+    const valueLength = titleInput.value.length;
 
     if (valueLength < MIN_TITLE_LENGTH) {
       titleInput.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');

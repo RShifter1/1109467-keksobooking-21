@@ -11,10 +11,10 @@
       y: evt.clientY
     };
 
-    var onMouseMove = function (moveEvt) {
+    const onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
 
-      var shift = {
+      const shift = {
         x: startCoords.x - moveEvt.clientX,
         y: startCoords.y - moveEvt.clientY
       };
@@ -29,7 +29,7 @@
 
     };
 
-    var onMouseUp = function (upEvt) {
+    const onMouseUp = function (upEvt) {
       upEvt.preventDefault();
 
       document.removeEventListener('mousemove', onMouseMove);
