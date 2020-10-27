@@ -1,8 +1,8 @@
 "use strict";
 
 (function () {
-  const MIN_TITLE_LENGTH = 2;
-  const MAX_TITLE_LENGTH = 25;
+  const MIN_TITLE_LENGTH = 30;
+  const MAX_TITLE_LENGTH = 100;
   const guestNumbers = document.querySelector(`#capacity`);
   const roomNumbers = document.querySelector(`#room_number`);
   const titleInput = document.querySelector(`#title`);

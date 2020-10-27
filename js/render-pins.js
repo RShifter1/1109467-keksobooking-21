@@ -2,9 +2,11 @@
 
 
 (function () {
-  // var pins = generateObjects(8);
   window.renderPins = function (pins) {
-
+    const MAXPINS = 5;
+    pins = pins.slice(0, MAXPINS);
+    const oldPins = document.querySelectorAll(`.map__pin:not(.map__pin--main)`);
+    oldPins.forEach((pin) => pin.remove());
     const pinsContainer = document.querySelector(`.map__pins`);
     const template = document.querySelector(`#pin`).content.querySelector(`button`);
 

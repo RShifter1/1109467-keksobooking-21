@@ -5,8 +5,10 @@
   const select = document.querySelectorAll(`select`);
   const mapPinMain = document.querySelector(`.map__pin--main`);
   const fieldset = document.querySelectorAll(`fieldset`);
+
   window.activatePage = function () {
     window.load(function (pins) {
+      window.hotels = pins;
       map.classList.remove(`map--faded`);
       form.classList.remove(`ad-form--disabled`);
 
@@ -29,9 +31,21 @@
 
       window.renderPins(pins);
       address.setAttribute(`disabled`, `disabled`);
+    }, function (errorMessage) {
+      var node = document.createElement('div');
+      node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+      node.style.position = 'absolute';
+      node.style.left = 0;
+      node.style.right = 0;
+      node.style.fontSize = '30px';
+      node.textContent = errorMessage;
+      document.body.insertAdjacentElement('afterbegin', node);
+
+
     });
 
   };
+
 
   mapPinMain.addEventListener(`click`, function () {
     window.activatePage();
@@ -43,4 +57,5 @@
       window.activatePage();
     }
   });
+
 })();
