@@ -2,16 +2,24 @@
 (function () {
 
   const URL = `https://21.javascript.pages.academy/keksobooking`;
-
-  window.upload = function (data, onSuccess) {
+  const form = document.querySelector(`.ad-form`);
+  window.upload = function (onSuccess, onError) {
+    const formData = new FormData(form);
     var xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
 
     xhr.addEventListener('load', function () {
-      onSuccess(xhr.response);
+
+      if (xhr.status === 200) {
+        onSuccess(xhr.response);
+      } else {
+        onError(xhr.response);
+      }
+
     });
 
     xhr.open('POST', URL);
-    xhr.send(data);
+
+    xhr.send(formData);
   };
 })();

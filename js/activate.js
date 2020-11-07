@@ -7,8 +7,8 @@
   const fieldset = document.querySelectorAll(`fieldset`);
 
   window.activatePage = function () {
-    window.load(function (pins) {
-      window.hotels = pins;
+    window.load(function (hotels) {
+      window.hotels = hotels;
       map.classList.remove(`map--faded`);
       form.classList.remove(`ad-form--disabled`);
 
@@ -29,7 +29,8 @@
 
       address.value = `${x}, ${y}`;
 
-      window.renderPins(pins);
+      window.renderPins(hotels);
+      window.renderCards(window.hotels);
       address.setAttribute(`disabled`, `disabled`);
     }, function (errorMessage) {
       var node = document.createElement('div');
@@ -51,11 +52,7 @@
     window.activatePage();
   });
 
-  document.addEventListener('keydown', function (evt) {
-    if (evt.key === 'Enter') {
-      evt.preventDefault();
-      window.activatePage();
-    }
-  });
+  // mapPinMain.addEventListener(`click`, window.activatePage());
+
 
 })();
