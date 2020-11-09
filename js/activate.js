@@ -31,7 +31,6 @@
 
       window.renderPins(hotels);
       window.renderCards(window.hotels);
-      address.setAttribute(`disabled`, `disabled`);
     }, function (errorMessage) {
       var node = document.createElement('div');
       node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';

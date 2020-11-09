@@ -190,7 +190,7 @@
         // });
         disactivatePage();
         main.appendChild(success);
-        main.addEventListener(`click`, function () {
+        document.addEventListener(`click`, function () {
           main.removeChild(success);
 
         });
@@ -232,6 +232,8 @@
     select.forEach(function (item) {
       item.setAttribute('disabled', `disabled`);
     });
+    document.querySelector(`.map__filters`).reset();
+    document.querySelectorAll(`.map__pin:not(.map__pin--main)`).forEach((pin) => pin.remove());
   }
 
 const reset = document.querySelector(`.ad-form__reset`);
