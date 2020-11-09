@@ -8,16 +8,11 @@
     }
   });
 
-
-
-
   window.onPopupEscPress = function (evt) {
-  if (evt.key === 'Escape') {
-    evt.preventDefault();
-    closeCard();
-  }
-};
-
-
+    if (evt.key === 'Escape') {
+      evt.preventDefault();
+      window.closeCard();
+    }
+  };
 
 })();

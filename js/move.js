@@ -2,10 +2,7 @@
 (function () {
 
   const mapPinMain = document.querySelector(`.map__pin--main`);
-  let {x, y, width, height} = document.querySelector(`.map`).getBoundingClientRect();
-
-
-
+  let {x, width} = document.querySelector(`.map`).getBoundingClientRect();
 
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -17,8 +14,6 @@
 
     const onMouseMove = function (moveEvt) {
       moveEvt.preventDefault();
-
-
 
       const shift = {
         x: startCoords.x - moveEvt.clientX,

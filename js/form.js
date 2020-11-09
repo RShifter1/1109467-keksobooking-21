@@ -3,7 +3,6 @@
 (function () {
   const MIN_TITLE_LENGTH = 30;
   const MAX_TITLE_LENGTH = 100;
-  const MAX_PRICE = 1000000;
   const MIN_FLAT_PRICE = 1000;
   const guestNumbers = document.querySelector(`#capacity`);
   const roomNumbers = document.querySelector(`#room_number`);
@@ -11,7 +10,7 @@
   const select = document.querySelectorAll(`select`);
   const mapPinMain = document.querySelector(`.map__pin--main`);
   const priceInput = document.querySelector(`#price`);
-  const typeNumber = document.querySelector (`#type`);
+  const typeNumber = document.querySelector(`#type`);
   const checkIn = document.querySelector(`#timein`);
   const checkOut = document.querySelector(`#timeout`);
   const fieldset = document.querySelectorAll(`fieldset`);
@@ -32,18 +31,16 @@
   });
 
   priceInput.addEventListener(`input`, function () {
-    const value = Number(document.querySelector(`#price`).value);
+
 
     if (Number(document.querySelector(`#price`).value) > 1000000) {
-      priceInput.setCustomValidity(`Максимальное значение — 1 000 000`);
+      priceInput.setCustomValidity(`Максимальное значение — 1000000`);
     } else {
       priceInput.setCustomValidity('');
     }
 
     priceInput.reportValidity();
   });
-
-
 
   const checkRoomsGuests = function (selected) {
     const selectedGuestNumberS = guestNumbers.selectedOptions;
@@ -72,7 +69,7 @@
   });
 
 
-  const checkTypePrice = function (selected) {
+  const checkTypePrice = function () {
     const selectedHousingType = document.querySelector(`#type`).selectedOptions[0].value;
     const price = Number(priceInput.value);
 
@@ -102,7 +99,7 @@
     } else if (selectedHousingType === `palace`) {
       priceInput.placeholder = `10000`;
       if (price < 10000) {
-        priceInput.setCustomValidity(`минимальное значение 10000`)
+        priceInput.setCustomValidity(`минимальное значение 10000`);
       } else {
         priceInput.setCustomValidity(``);
       }
@@ -120,7 +117,6 @@
 
   checkIn.addEventListener(`change`, function () {
     const selectedCheckIn = checkIn.value;
-    const selectedCheckOut = checkOut.value;
 
     if (selectedCheckIn === "12:00") {
       checkOut.value = "12:00";
@@ -129,10 +125,9 @@
     } else if (selectedCheckIn === "14:00") {
       checkOut.value = "14:00";
     }
-});
+  });
 
   checkOut.addEventListener(`change`, function () {
-    const selectedCheckIn = checkIn.value;
     const selectedCheckOut = checkOut.value;
 
     if (selectedCheckOut === "12:00") {
@@ -142,10 +137,8 @@
     } else if (selectedCheckOut === "14:00") {
       checkIn.value = "14:00";
     }
-});
+  });
 
-
-  const formButton = document.querySelector(`.ad-form__submit`);
   const successTemplate = document.querySelector(`#success`).content.querySelector('div');
   const errorTemplate = document.querySelector(`#error`).content.querySelector('div');
   const map = document.querySelector(`.map`);
@@ -160,16 +153,17 @@
       offer: {}
     };
 
-    if (!form.checkValidity()) {
-      return form.reportValidity();
-    }
+    // if (!form.checkValidity()) {
+    //   return form.reportValidity();
+    // } else {
+    //   return form.reportValidity();
+    // }
 
     data.author.avatar = document.querySelector(`#avatar`).value;
     data.offer.title = document.querySelector(`#title`).value;
     data.offer.address = document.querySelector(`#address`).value;
     data.offer.price = document.querySelector(`#price`).value;
     data.offer.type = document.querySelector(`#type`).value;
-    debugger;
     data.offer.rooms = document.querySelector(`#room_number`).value;
     data.offer.guests = document.querySelector(`#capacity`).value;
     data.offer.checkin = document.querySelector(`#timein`).value;
@@ -178,49 +172,35 @@
     data.offer.features = Array.from(features).filter((feature) => feature.checked).map((feature) => feature.value);
     data.offer.photos = document.querySelector(`#images`).value;
 
-    window.upload(function (response) {
+    window.upload(function () {
       const success = successTemplate.cloneNode(true);
-        // map.classList.add(`map--faded`);
-        // form.classList.add(`ad-form--disabled`);
-        // fieldset.forEach(function (field) {
-        //   field.setAttribute('disabled', `disabled`);
-        // });
-        // select.forEach(function (item) {
-        //   item.setAttribute('disabled', `disabled`);
-        // });
-        disactivatePage();
-        main.appendChild(success);
-        document.addEventListener(`click`, function () {
-          main.removeChild(success);
-
-        });
-        document.addEventListener(`keydown`, function (evt) {
-          if (evt.key === 'Escape') {
-            evt.preventDefault();
-            main.removeChild(success);
-          }
-        });
-      }, function (response) {
-        let error = errorTemplate.cloneNode(true);
-        main.appendChild(error);
-        errorButton.addEventListener(`click`, function () {
-          let divError = document.querySelector(`.error`);
-          main.removeChild(error);
-        });
-        document.addEventListener(`keydown`, function (evt) {
-          if (evt.key === 'Escape') {
-            evt.preventDefault();
-            main.removeChild(error);
-          }
-        });
-        main.addEventListener(`click`, function () {
-          main.removeChild(error);
-        });
+      disactivatePage();
+      main.appendChild(success);
+      document.addEventListener(`click`, function () {
+        main.removeChild(success);
       });
-    // } else {
-    //      form.reportValidity();
-    //   };
-
+      document.addEventListener(`keydown`, function (e) {
+        if (e.key === 'Escape') {
+          evt.preventDefault();
+          main.removeChild(success);
+        }
+      });
+    }, function () {
+      let error = errorTemplate.cloneNode(true);
+      main.appendChild(error);
+      errorButton.addEventListener(`click`, function () {
+        main.removeChild(error);
+      });
+      document.addEventListener(`keydown`, function (e) {
+        if (e.key === 'Escape') {
+          evt.preventDefault();
+          main.removeChild(error);
+        }
+      });
+      main.addEventListener(`click`, function () {
+        main.removeChild(error);
+      });
+    });
 
   });
   const disactivatePage = function () {
@@ -234,12 +214,17 @@
     });
     document.querySelector(`.map__filters`).reset();
     document.querySelectorAll(`.map__pin:not(.map__pin--main)`).forEach((pin) => pin.remove());
-  }
+    document.querySelector(`.ad-form`).reset();
+    // document.querySelector(`.map__pin--main`).offsetLeft = 100 + `px`;
+    // document.querySelector(`.map__pin--main`).offsetTop = 100 + `px`;
+    mapPinMain.style.left = 570 + `px`;
+    mapPinMain.style.top = 375 + `px`;
+  };
 
-const reset = document.querySelector(`.ad-form__reset`);
-reset.addEventListener(`click`, function () {
-  disactivatePage();
-});
+  const reset = document.querySelector(`.ad-form__reset`);
+  reset.addEventListener(`click`, function () {
+    disactivatePage();
+  });
 
   const initialAddress = function () {
     const leftX = document.querySelector(`.map__pin--main`).style.left;
@@ -247,15 +232,9 @@ reset.addEventListener(`click`, function () {
     const x = Math.floor(parseInt(leftX, 10) + (mapPinMain.offsetWidth / 2));// получить координату центра точки половина ширины контейнера (width)
     const y = Math.floor(parseInt(topY, 10) + (mapPinMain.offsetHeight / 2)); // получить координату центра точки  половина высоты контейнера (height) parseInt
     const address = document.querySelector(`#address`); // input с адресом
+
     address.value = `${x}, ${y}`;
   };
 
-
-//   form.addEventListener('submit', function (evt) {
-//     window.upload(new FormData(form), function (response) {
-//         const success = successTemplate.cloneNode(true);
-//         main.appendChild(success);
-//     });
-// });
   initialAddress();
 })();

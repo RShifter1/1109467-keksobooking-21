@@ -22,7 +22,7 @@
         cardElement.querySelector(`.popup__type`).textContent = `Дворец`;
       } else if (cardElement.querySelector(`.popup__type`).textContent === `house`) {
         cardElement.querySelector(`.popup__type`).textContent = `Дом`;
-      };
+      }
 
       cardElement.querySelector(`.popup__text--capacity`).textContent = card.offer.rooms + ` комнаты для ` + card.offer.guests + ` гостей`;
       cardElement.querySelector(`.popup__text--time`).textContent = `Заезд после ` + card.offer.checkin + ` выезд до ` + card.offer.checkout;
@@ -49,24 +49,20 @@
         cardElement.querySelector(`.popup__features`).remove();
       }
       cardElement.querySelector(`.popup__description`).textContent = card.offer.description;
-
       const photo = cardElement.querySelector(`.popup__photos`);
       photo.removeChild(cardElement.querySelector(`.popup__photo`));
-      for (let i = 0; i < card.offer.photos.length; i++) {
+      for (let j = 0; j < card.offer.photos.length; j++) {
         let newPhoto = document.createElement('img');
         newPhoto.style.width = 45 + `px`;
         newPhoto.style.height = 40 + `px`;
-        newPhoto.src = card.offer.photos[i];
+        newPhoto.src = card.offer.photos[j];
         photo.appendChild(newPhoto);
-      };
-
+      }
       if (card.offer.photos.length === 0) {
         cardElement.querySelector(`.popup__photos`).remove();
       }
-
       const avatar = cardElement.querySelector(`.popup__avatar`);
       avatar.src = card.author.avatar;
-
       cardElement.style.display = `none`;
       cardElement.dataset.id = `${card.location.x}:${card.location.y}`;
 
@@ -75,35 +71,19 @@
       cross.addEventListener(`click`, function () {
         // const cards = document.querySelectorAll(`.map__card`);
         // cards.forEach(card => {card.style.display = `none`});
-        closeCard();
+        window.closeCard();
       });
 
-
-
       cardContainer.appendChild(cardElement);
-
-    };
-document.addEventListener('keydown', onPopupEscPress);
+    }
+    document.addEventListener('keydown', window.onPopupEscPress);
   };
-  // document.addEventListener(`keydown`, function (evt) {
-  //   if (evt.key === 'Escape') {
-  //     evt.preventDefault();
-  //    const cards = document.querySelectorAll(`.map__card`);
-        // cards.forEach(card => {card.style.display = `none`});
-  //   }
-  // });
-
   window.closeCard = function () {
     const cards = document.querySelectorAll(`.map__card`);
-    cards.forEach(card => {card.style.display = `none`});
+    cards.forEach((card) => {
+      card.style.display = `none`;
+    });
+  };
 
-  }
-
-//   var onPopupEscPress = function (evt) {
-//   if (evt.key === 'Escape') {
-//     evt.preventDefault();
-//     closeCard();
-//   }
-// };
-document.removeEventListener('keydown', window.onPopupEscPress);
+  document.removeEventListener('keydown', window.onPopupEscPress);
 })();
