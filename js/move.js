@@ -2,6 +2,7 @@
 (function () {
 
   const mapPinMain = document.querySelector(`.map__pin--main`);
+  let {x, width} = document.querySelector(`.map`).getBoundingClientRect();
 
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -24,8 +25,15 @@
         y: moveEvt.clientY
       };
 
-      mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-      mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+
+      if (startCoords.x > x && startCoords.x < x + width) {
+        mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+      }
+
+      if (startCoords.y > 130 && startCoords.y < 630) {
+        mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
+      }
+
 
     };
 
