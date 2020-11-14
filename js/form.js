@@ -143,7 +143,8 @@
     const features = document.querySelectorAll(`.feature__checkbox`);
     data.offer.features = Array.from(features).filter((feature) => feature.checked).map((feature) => feature.value);
     data.offer.photos = document.querySelector(`#images`).value;
-    window.upload(function () {
+
+    function onSuccess() {
       const success = successTemplate.cloneNode(true);
       disactivatePage();
       main.appendChild(success);
@@ -156,7 +157,8 @@
           main.removeChild(success);
         }
       });
-    }, function () {
+    }
+    function onError() {
       let error = errorTemplate.cloneNode(true);
       main.appendChild(error);
       errorButton.addEventListener(`click`, function () {
@@ -171,8 +173,10 @@
       main.addEventListener(`click`, function () {
         main.removeChild(error);
       });
-    });
+    }
+    window.upload(onSuccess, onError);
   });
+
   const disactivatePage = function () {
     map.classList.add(`map--faded`);
     form.classList.add(`ad-form--disabled`);
