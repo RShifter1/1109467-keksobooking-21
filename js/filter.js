@@ -5,6 +5,7 @@
     let filteredHotels = window.hotels;
     const housingType = document.querySelector(`#housing-type`).value;
     window.closeCard();
+    
     if (housingType !== `any`) {
       filteredHotels = filteredHotels.filter((hotel) => hotel.offer.type === housingType);
     }
@@ -52,6 +53,7 @@
     }
     window.renderPins(filteredHotels);
   }
+
   document.querySelectorAll(`.map__filters > select`).forEach((select) => {
     select.addEventListener(`change`, applyFilters);
   });
