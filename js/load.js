@@ -6,11 +6,9 @@
     OK: 200
   };
   const TIMEOUT_IN_MS = 10000;
-
-  window.load = function (onSuccess, onError) {
+  function load(onSuccess, onError) {
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-
     xhr.addEventListener('load', function () {
       if (xhr.status === StatusCode.OK) {
         onSuccess(xhr.response);
@@ -24,10 +22,9 @@
     xhr.addEventListener('timeout', function () {
       onError('Запрос не успел выполниться за ' + xhr.timeout + 'мс');
     });
-
     xhr.timeout = TIMEOUT_IN_MS;
-
     xhr.open('GET', URL);
     xhr.send();
-  };
+  }
+  window.load = load;
 })();

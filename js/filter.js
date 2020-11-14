@@ -3,9 +3,9 @@
 (function () {
   function applyFilters() {
     let filteredHotels = window.hotels;
-
     const housingType = document.querySelector(`#housing-type`).value;
     window.closeCard();
+    
     if (housingType !== `any`) {
       filteredHotels = filteredHotels.filter((hotel) => hotel.offer.type === housingType);
     }
@@ -51,12 +51,13 @@
     if (housingConditioner.checked) {
       filteredHotels = filteredHotels.filter((hotel) => hotel.offer.features.includes(`conditioner`));
     }
-
     window.renderPins(filteredHotels);
   }
 
-  window.applyFilters = applyFilters;
-
-  addEventListener(`change`, applyFilters);
-
+  document.querySelectorAll(`.map__filters > select`).forEach((select) => {
+    select.addEventListener(`change`, applyFilters);
+  });
+  document.querySelectorAll(`.map__features > input`).forEach((input) => {
+    input.addEventListener(`change`, applyFilters);
+  });
 })();
