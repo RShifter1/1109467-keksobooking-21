@@ -34,28 +34,31 @@
     }
     priceInput.reportValidity();
   });
-  const checkRoomsGuests = function (selected) {
-    const selectedGuestNumberS = guestNumbers.selectedOptions;
-    const selectedRoomNumberS = roomNumbers.selectedOptions;
-    const selectedGuestNumberSNumber = Number(selectedGuestNumberS[0].value);
-    const selectedRoomNumberSNumber = Number(selectedRoomNumberS[0].value);
-    if (selectedRoomNumberSNumber === 100 && selectedGuestNumberSNumber !== 0) {
-      selected.setCustomValidity(`Слишком много комнат`);
-    } else if (selectedGuestNumberSNumber > selectedRoomNumberSNumber) {
-      selected.setCustomValidity(`Добавьте больше комнат`);
-    } else if (selectedGuestNumberSNumber === 0 && selectedRoomNumberSNumber !== 100) {
-      selected.setCustomValidity(`Измените число гостей`);
+
+  function checkRoomsGuests() {
+    const selectedRoomNumbers = Number(roomNumbers.value);
+    const selectedGuestNumbers = Number(guestNumbers.value);
+
+    if (selectedRoomNumbers === 100 && selectedGuestNumbers !== 0) {
+      roomNumbers.setCustomValidity(`слишком много комнат`);
+      guestNumbers.setCustomValidity(``);
+    } else if (selectedGuestNumbers > selectedRoomNumbers) {
+      roomNumbers.setCustomValidity(`добавьте больше комнат`);
+      guestNumbers.setCustomValidity(``);
+    } else if (selectedGuestNumbers === 0 && selectedRoomNumbers !== 100) {
+      roomNumbers.setCustomValidity(``);
+      guestNumbers.setCustomValidity(`измените число гостей`);
     } else {
-      selected.setCustomValidity(``);
+      roomNumbers.setCustomValidity(``);
+      guestNumbers.setCustomValidity(``);
     }
-    selected.reportValidity();
-  };
-  guestNumbers.addEventListener(`change`, function () {
-    checkRoomsGuests(guestNumbers);
-  });
-  roomNumbers.addEventListener(`change`, function () {
-    checkRoomsGuests(roomNumbers);
-  });
+    roomNumbers.reportValidity();
+    guestNumbers.reportValidity();
+  }
+
+  roomNumbers.addEventListener('change', checkRoomsGuests);
+  guestNumbers.addEventListener('change', checkRoomsGuests);
+
   function checkTypePrice() {
     const selectedHousingType = document.querySelector(`#type`).selectedOptions[0].value;
     const price = Number(priceInput.value);
