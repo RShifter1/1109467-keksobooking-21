@@ -18,10 +18,10 @@
         item.removeAttribute('disabled');
       });
       const leftX = document.querySelector(`.map__pin--main`).style.left;
-      const topY = document.querySelector(`.map__pin--main`).style.top; // получить координату  y верхнего угла орандевой метки
-      const x = Math.floor(parseInt(leftX, 10) + (mapPinMain.offsetWidth / 2 - 3)); // получить координату центра точки половина ширины контейнера (width)
-      const y = Math.floor(parseInt(topY, 10) + (10 + mapPinMain.offsetHeight)); // получить координату центра точки  половина высоты контейнера (height) parseInt
-      const address = form.querySelector(`#address`); // input с адресом
+      const topY = document.querySelector(`.map__pin--main`).style.top;
+      const x = Math.floor(parseInt(leftX, 10) + (mapPinMain.offsetWidth / 2 - 3));
+      const y = Math.floor(parseInt(topY, 10) + (10 + mapPinMain.offsetHeight));
+      const address = form.querySelector(`#address`);
       address.value = `${x}, ${y}`;
       window.renderPins(hotels);
       window.renderCards(window.hotels);
@@ -36,8 +36,10 @@
       document.body.insertAdjacentElement('afterbegin', node);
     });
   }
-  mapPinMain.addEventListener(`click`, function () {
-    activatePage();
+  mapPinMain.addEventListener(`mousedown`, function (evt) {
+    if (evt.which === 1) {
+      activatePage();
+    }
   });
   window.activatePage = activatePage;
 })();

@@ -45,14 +45,14 @@
         cardElement.querySelector(`.popup__features`).remove();
       }
       cardElement.querySelector(`.popup__description`).textContent = card.offer.description;
-      const photo = cardElement.querySelector(`.popup__photos`);
-      photo.removeChild(cardElement.querySelector(`.popup__photo`));
+      const photos = cardElement.querySelector(`.popup__photos`);
+      photos.removeChild(cardElement.querySelector(`.popup__photo`));
       for (let j = 0; j < card.offer.photos.length; j++) {
         let newPhoto = document.createElement('img');
         newPhoto.style.width = 45 + `px`;
         newPhoto.style.height = 40 + `px`;
         newPhoto.src = card.offer.photos[j];
-        photo.appendChild(newPhoto);
+        photos.appendChild(newPhoto);
       }
       if (card.offer.photos.length === 0) {
         cardElement.querySelector(`.popup__photos`).remove();
@@ -77,6 +77,7 @@
   function closeCard() {
     const cards = document.querySelectorAll(`.map__card`);
     cards.forEach((card) => {
+      // card.removeChild();
       card.style.display = `none`;
       Array.from(document.querySelectorAll(`.map__pin:not(.map__pin--main)`)).forEach((pin) => pin.classList.remove(`map__pin--active`));
     });

@@ -149,12 +149,13 @@
       disactivatePage();
       main.appendChild(success);
       document.addEventListener(`click`, function () {
-        main.removeChild(success);
+        success.remove();
+        // document.removeEventListener(`click`);
       });
       document.addEventListener(`keydown`, function (e) {
         if (e.key === 'Escape') {
           evt.preventDefault();
-          main.removeChild(success);
+          success.remove();
         }
       });
     }
@@ -162,16 +163,17 @@
       let error = errorTemplate.cloneNode(true);
       main.appendChild(error);
       errorButton.addEventListener(`click`, function () {
-        main.removeChild(error);
+        error.remove();
+
       });
       document.addEventListener(`keydown`, function (e) {
         if (e.key === 'Escape') {
           evt.preventDefault();
-          main.removeChild(error);
+          error.remove();
         }
       });
       main.addEventListener(`click`, function () {
-        main.removeChild(error);
+        error.remove();
       });
     }
     window.upload(onSuccess, onError);
@@ -191,10 +193,12 @@
     document.querySelector(`.ad-form`).reset();
     mapPinMain.style.left = 570 + `px`;
     mapPinMain.style.top = 375 + `px`;
+    initialAddress();
   };
   const reset = document.querySelector(`.ad-form__reset`);
   reset.addEventListener(`click`, function () {
     disactivatePage();
+
   });
   const initialAddress = function () {
     const leftX = document.querySelector(`.map__pin--main`).style.left;
