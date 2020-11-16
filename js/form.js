@@ -4,6 +4,8 @@
   const MIN_TITLE_LENGTH = 30;
   const MAX_TITLE_LENGTH = 100;
   const MIN_FLAT_PRICE = 1000;
+  const INITIAL_X = 570;
+  const INITIAL_Y = 375;
   const guestNumbers = document.querySelector(`#capacity`);
   const roomNumbers = document.querySelector(`#room_number`);
   const titleInput = document.querySelector(`#title`);
@@ -14,15 +16,14 @@
   const checkIn = document.querySelector(`#timein`);
   const checkOut = document.querySelector(`#timeout`);
   const fieldset = document.querySelectorAll(`fieldset`);
-
-  titleInput.addEventListener('input', function () {
+  titleInput.addEventListener(`input`, function () {
     const valueLength = titleInput.value.length;
     if (valueLength < MIN_TITLE_LENGTH) {
-      titleInput.setCustomValidity('Ещё ' + (MIN_TITLE_LENGTH - valueLength) + ' симв.');
+      titleInput.setCustomValidity(`Ещё ` + (MIN_TITLE_LENGTH - valueLength) + ` симв.`);
     } else if (valueLength > MAX_TITLE_LENGTH) {
-      titleInput.setCustomValidity('Удалите лишние ' + (valueLength - MAX_TITLE_LENGTH) + ' симв.');
+      titleInput.setCustomValidity(`Удалите лишние ` + (valueLength - MAX_TITLE_LENGTH) + ` симв.`);
     } else {
-      titleInput.setCustomValidity('');
+      titleInput.setCustomValidity(``);
     }
     titleInput.reportValidity();
   });
@@ -30,7 +31,7 @@
     if (Number(document.querySelector(`#price`).value) > 1000000) {
       priceInput.setCustomValidity(`Максимальное значение — 1000000`);
     } else {
-      priceInput.setCustomValidity('');
+      priceInput.setCustomValidity(``);
     }
     priceInput.reportValidity();
   });
@@ -56,8 +57,8 @@
     guestNumbers.reportValidity();
   }
 
-  roomNumbers.addEventListener('change', checkRoomsGuests);
-  guestNumbers.addEventListener('change', checkRoomsGuests);
+  roomNumbers.addEventListener(`change`, checkRoomsGuests);
+  guestNumbers.addEventListener(`change`, checkRoomsGuests);
 
   function checkTypePrice() {
     const selectedHousingType = document.querySelector(`#type`).selectedOptions[0].value;
@@ -101,30 +102,30 @@
   });
   checkIn.addEventListener(`change`, function () {
     const selectedCheckIn = checkIn.value;
-    if (selectedCheckIn === "12:00") {
-      checkOut.value = "12:00";
-    } else if (selectedCheckIn === "13:00") {
-      checkOut.value = "13:00";
-    } else if (selectedCheckIn === "14:00") {
-      checkOut.value = "14:00";
+    if (selectedCheckIn === `12:00`) {
+      checkOut.value = `12:00`;
+    } else if (selectedCheckIn === `13:00`) {
+      checkOut.value = `13:00`;
+    } else if (selectedCheckIn === `14:00`) {
+      checkOut.value = `14:00`;
     }
   });
   checkOut.addEventListener(`change`, function () {
     const selectedCheckOut = checkOut.value;
-    if (selectedCheckOut === "12:00") {
-      checkIn.value = "12:00";
-    } else if (selectedCheckOut === "13:00") {
-      checkIn.value = "13:00";
-    } else if (selectedCheckOut === "14:00") {
-      checkIn.value = "14:00";
+    if (selectedCheckOut === `12:00`) {
+      checkIn.value = `12:00`;
+    } else if (selectedCheckOut === `13:00`) {
+      checkIn.value = `13:00`;
+    } else if (selectedCheckOut === `14:00`) {
+      checkIn.value = `14:00`;
     }
   });
-  const successTemplate = document.querySelector(`#success`).content.querySelector('div');
-  const errorTemplate = document.querySelector(`#error`).content.querySelector('div');
+  const successTemplate = document.querySelector(`#success`).content.querySelector(`div`);
+  const errorTemplate = document.querySelector(`#error`).content.querySelector(`div`);
   const map = document.querySelector(`.map`);
   const form = document.querySelector(`.ad-form`);
   const main = document.querySelector(`main`);
-  const errorButton = document.querySelector(`#error`).content.querySelector('button');
+  const errorButton = document.querySelector(`#error`).content.querySelector(`button`);
   form.addEventListener(`submit`, function (evt) {
     evt.preventDefault();
     const data = {
@@ -149,12 +150,12 @@
       disactivatePage();
       main.appendChild(success);
       document.addEventListener(`click`, function () {
-        main.removeChild(success);
+        success.remove();
       });
       document.addEventListener(`keydown`, function (e) {
-        if (e.key === 'Escape') {
+        if (e.key === `Escape`) {
           evt.preventDefault();
-          main.removeChild(success);
+          success.remove();
         }
       });
     }
@@ -162,16 +163,17 @@
       let error = errorTemplate.cloneNode(true);
       main.appendChild(error);
       errorButton.addEventListener(`click`, function () {
-        main.removeChild(error);
+        error.remove();
+
       });
       document.addEventListener(`keydown`, function (e) {
-        if (e.key === 'Escape') {
+        if (e.key === `Escape`) {
           evt.preventDefault();
-          main.removeChild(error);
+          error.remove();
         }
       });
       main.addEventListener(`click`, function () {
-        main.removeChild(error);
+        error.remove();
       });
     }
     window.upload(onSuccess, onError);
@@ -181,28 +183,23 @@
     map.classList.add(`map--faded`);
     form.classList.add(`ad-form--disabled`);
     fieldset.forEach(function (field) {
-      field.setAttribute('disabled', `disabled`);
+      field.setAttribute(`disabled`, `disabled`);
     });
     select.forEach(function (item) {
-      item.setAttribute('disabled', `disabled`);
+      item.setAttribute(`disabled`, `disabled`);
     });
     document.querySelector(`.map__filters`).reset();
     document.querySelectorAll(`.map__pin:not(.map__pin--main)`).forEach((pin) => pin.remove());
     document.querySelector(`.ad-form`).reset();
-    mapPinMain.style.left = 570 + `px`;
-    mapPinMain.style.top = 375 + `px`;
+    mapPinMain.style.left = INITIAL_X + `px`;
+    mapPinMain.style.top = INITIAL_Y + `px`;
+    document.querySelectorAll(`.map__card`).forEach((card) => card.remove());
+    window.grabAddress();
+    window.isPageActivated = false;
   };
   const reset = document.querySelector(`.ad-form__reset`);
   reset.addEventListener(`click`, function () {
     disactivatePage();
   });
-  const initialAddress = function () {
-    const leftX = document.querySelector(`.map__pin--main`).style.left;
-    const topY = document.querySelector(`.map__pin--main`).style.top; // получить координату  y верхнего угла орандевой метки
-    const x = Math.floor(parseInt(leftX, 10) + (mapPinMain.offsetWidth / 2));// получить координату центра точки половина ширины контейнера (width)
-    const y = Math.floor(parseInt(topY, 10) + (mapPinMain.offsetHeight / 2)); // получить координату центра точки  половина высоты контейнера (height) parseInt
-    const address = document.querySelector(`#address`); // input с адресом
-    address.value = `${x}, ${y}`;
-  };
-  initialAddress();
+  window.grabAddress(true);
 })();
