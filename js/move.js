@@ -1,36 +1,36 @@
-'use strict';
+"use strict";
 (function () {
-  const mapPinMain = document.querySelector(`.map__pin--main`);
-  let {x, width} = document.querySelector(`.map`).getBoundingClientRect();
-  mapPinMain.addEventListener('mousedown', function (evt) {
-    evt.preventDefault();
-    var startCoords = {
-      x: evt.clientX,
-      y: evt.clientY
-    };
-    const onMouseMove = function (moveEvt) {
-      moveEvt.preventDefault();
-      const shift = {
-        x: startCoords.x - moveEvt.clientX,
-        y: startCoords.y - moveEvt.clientY
-      };
-      startCoords = {
-        x: moveEvt.clientX,
-        y: moveEvt.clientY
-      };
-      if (startCoords.x > x && startCoords.x < x + width) {
-        mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+  const container = document.querySelector(`.map__pins`);
+  const element = document.querySelector(`.map__pin--main`);
+  let x = 0;
+  let y = 0;
+  let mousedown = false;
+  const onMouseUp = function () {
+    if (mousedown && !window.isPageActivated) {
+      window.activatePage();
+    }
+    mousedown = false;
+    document.removeEventListener(`mouseup`, onMouseUp);
+  };
+  element.addEventListener(`mousedown`, function (e) {
+    mousedown = true;
+    x = element.offsetLeft - e.clientX;
+    y = element.offsetTop - e.clientY;
+    document.addEventListener(`mouseup`, onMouseUp, true);
+  }, true);
+
+  container.addEventListener(`mousemove`, function (e) {
+    e.preventDefault();
+    if (mousedown) {
+      let ax = (e.clientX + x) + element.offsetWidth / 2;
+      let ay = (e.clientY + y) + element.offsetHeight;
+      let limitXfrom = container.offsetLeft;
+      let limitXto = container.offsetLeft + container.offsetWidth;
+      if (ay >= 130 && ay <= 630 && ax >= limitXfrom && ax <= limitXto) {
+        element.style.left = e.clientX + x + `px`;
+        element.style.top = e.clientY + y + `px`;
       }
-      if (startCoords.y > 130 && startCoords.y < 630) {
-        mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
-      }
-    };
-    const onMouseUp = function (upEvt) {
-      upEvt.preventDefault();
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-    };
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  });
+      window.grabAddress();
+    }
+  }, true);
 })();

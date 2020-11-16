@@ -54,9 +54,9 @@
   }
 
   document.querySelectorAll(`.map__filters > select`).forEach((select) => {
-    select.addEventListener(`change`, applyFilters);
+    select.addEventListener(`change`, window.debounce(applyFilters));
   });
   document.querySelectorAll(`.map__features > input`).forEach((input) => {
-    input.addEventListener(`change`, applyFilters);
+    input.addEventListener(`change`, window.debounce(applyFilters));
   });
 })();

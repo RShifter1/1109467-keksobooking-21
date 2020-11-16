@@ -5,7 +5,7 @@
     const cardContainer = document.querySelector(`.map`);
     const cardTemplate = document.querySelector(`#card`).content.children[0];
 
-    for (var i = 0; i < hotels.length; i++) {
+    for (let i = 0; i < hotels.length; i++) {
       const card = hotels[i];
       const cardElement = cardTemplate.cloneNode(true);
       cardElement.querySelector(`.popup__title`).textContent = card.offer.title;
@@ -48,7 +48,7 @@
       const photos = cardElement.querySelector(`.popup__photos`);
       photos.removeChild(cardElement.querySelector(`.popup__photo`));
       for (let j = 0; j < card.offer.photos.length; j++) {
-        let newPhoto = document.createElement('img');
+        let newPhoto = document.createElement(`img`);
         newPhoto.style.width = 45 + `px`;
         newPhoto.style.height = 40 + `px`;
         newPhoto.src = card.offer.photos[j];
@@ -69,7 +69,7 @@
     }
   }
   function onPopupEscPress(evt) {
-    if (evt.key === 'Escape') {
+    if (evt.key === `Escape`) {
       evt.preventDefault();
       closeCard();
     }
@@ -77,11 +77,10 @@
   function closeCard() {
     const cards = document.querySelectorAll(`.map__card`);
     cards.forEach((card) => {
-      // card.removeChild();
       card.style.display = `none`;
       Array.from(document.querySelectorAll(`.map__pin:not(.map__pin--main)`)).forEach((pin) => pin.classList.remove(`map__pin--active`));
     });
-    document.removeEventListener('keydown', onPopupEscPress);
+    document.removeEventListener(`keydown`, onPopupEscPress);
   }
   function openCard(hotel, pinElement) {
     document.querySelectorAll(`.map__card`).forEach((card) => {
@@ -90,7 +89,7 @@
     document.querySelector(`.map__card[data-id="${hotel.location.x}:${hotel.location.y}"]`).style.display = `block`;
     Array.from(document.querySelectorAll(`.map__pin:not(.map__pin--main)`)).forEach((pin) => pin.classList.remove(`map__pin--active`));
     pinElement.classList.add(`map__pin--active`);
-    document.addEventListener('keydown', onPopupEscPress);
+    document.addEventListener(`keydown`, onPopupEscPress);
   }
   window.closeCard = closeCard;
   window.openCard = openCard;
