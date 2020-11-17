@@ -8,6 +8,7 @@
     }
   });
   const mapPinMain = document.querySelector(`.map__pin--main`);
+  const container = document.querySelector(`.map__pins`);
   window.grabAddress = function (centered) {
     const leftX = mapPinMain.style.left;
     const topY = mapPinMain.style.top;
@@ -15,6 +16,5 @@
     const y = Math.floor(parseInt(topY, 10) + (mapPinMain.offsetHeight / (centered ? 2 : 1)));
     const address = document.querySelector(`#address`);
     address.value = `${x}, ${y}`;
-    // debugger;
   };
 })();
