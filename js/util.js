@@ -1,7 +1,6 @@
 "use strict";
 
 (function () {
-  
   const mapPinMain = document.querySelector(`.map__pin--main`);
   window.grabAddress = function (centered) {
     const leftX = mapPinMain.style.left;
