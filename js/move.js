@@ -12,7 +12,9 @@
   element.addEventListener(`mousedown`, function (e) {
     mousedown = true;
     if (!window.isPageActivated) {
-      window.activatePage();
+      if (e.button === 0) {
+        window.activatePage();
+      }
     }
     x = element.offsetLeft - e.clientX;
     y = element.offsetTop - e.clientY;

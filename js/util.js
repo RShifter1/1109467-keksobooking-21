@@ -8,7 +8,6 @@
     }
   });
   const mapPinMain = document.querySelector(`.map__pin--main`);
-  const container = document.querySelector(`.map__pins`);
   window.grabAddress = function (centered) {
     const leftX = mapPinMain.style.left;
     const topY = mapPinMain.style.top;
