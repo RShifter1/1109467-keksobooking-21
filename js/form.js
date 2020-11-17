@@ -194,7 +194,8 @@
     mapPinMain.style.left = INITIAL_X + `px`;
     mapPinMain.style.top = INITIAL_Y + `px`;
     document.querySelectorAll(`.map__card`).forEach((card) => card.remove());
-    window.grabAddress();
+    window.grabAddress(true);
+    // debugger;
     window.isPageActivated = false;
   };
   const reset = document.querySelector(`.ad-form__reset`);

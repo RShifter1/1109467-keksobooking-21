@@ -6,14 +6,14 @@
   let y = 0;
   let mousedown = false;
   const onMouseUp = function () {
-    if (mousedown && !window.isPageActivated) {
-      window.activatePage();
-    }
     mousedown = false;
     document.removeEventListener(`mouseup`, onMouseUp);
   };
   element.addEventListener(`mousedown`, function (e) {
     mousedown = true;
+    if (!window.isPageActivated) {
+      window.activatePage();
+    }
     x = element.offsetLeft - e.clientX;
     y = element.offsetTop - e.clientY;
     document.addEventListener(`mouseup`, onMouseUp, true);

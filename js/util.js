@@ -15,5 +15,6 @@
     const y = Math.floor(parseInt(topY, 10) + (mapPinMain.offsetHeight / (centered ? 2 : 1)));
     const address = document.querySelector(`#address`);
     address.value = `${x}, ${y}`;
+    // debugger;
   };
 })();
