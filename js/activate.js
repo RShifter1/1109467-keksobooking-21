@@ -33,5 +33,12 @@
       document.body.insertAdjacentElement(`afterbegin`, node);
     });
   }
+
+  document.addEventListener(`keydown`, function (evt) {
+    if (evt.key === `Enter`) {
+      evt.preventDefault();
+      window.activatePage();
+    }
+  });
   window.activatePage = activatePage;
 })();
